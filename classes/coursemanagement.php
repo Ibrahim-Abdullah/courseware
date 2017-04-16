@@ -50,7 +50,7 @@ class CourseManagement Extends dbconnection
         //List unregistered courses
 
         $sql = "SELECT ac.coursecode, ac.coursename, ac.courseid, ac.courseyear FROM allcourses as ac 
-        inner join majorcourse as mc on mc.courseid = mc.course_id WHERE mc.major_id = $majorid ";
+        inner join majorcourses as mc on ac.courseid = mc.course_id WHERE mc.major_id = '$majorid' ";
 
 
         if($this->regcourses === null)
@@ -64,6 +64,8 @@ class CourseManagement Extends dbconnection
 
             //append to the sql
             $sql = $sql." AND mj.courseides NOT IN ($cids)";
+
+            return $this->query($sql);
         }
 	}
 }

@@ -33,6 +33,7 @@
 
 		/**
 		 * Close database connection
+         *
 		 */
 		public function close_connection()
 		{
@@ -59,7 +60,7 @@
 
 		/**
 		 * Fetch the result stored in the dbresult variable.
-		 * @return boolean | 
+		 * @return boolean | result Return the result of the query
 		 */
 		public function fetch()
 		{
@@ -83,7 +84,13 @@
 			return mysqli_num_rows($this-dbresult);
 		}
 
+
 		public function preparedstatementquery()
+        {
+
+        }
+
+        public function sqlinjectioncheckquery()
         {
 
         }

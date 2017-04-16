@@ -26,7 +26,7 @@
 			while($row=$unreglist->fetch())
 			{
 			    //make the courseid as the value of the check boxes.
-				echo "<input type = 'checkbox' name ='regcs'>{$row['coursename']}";
+				echo "<input type = 'checkbox' name ='regcs' value=" .$row['courseid'] ." >" .$row['coursename']."<br>";
 			}
 		}
 	}

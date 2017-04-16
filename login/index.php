@@ -13,7 +13,8 @@
 		<form id="contact" action="" method="post">
 			<center><h2>Login</h2></center>
 			<fieldset>
-				<input placeholder="Username" type="text" tabindex="1" name="username" required maxlength="30" value= "<?php echo "$username"; ?>"" pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" title="Please enter a valid name: at least two letters required">
+				<input placeholder="Username" type="text" tabindex="1" name="username" required maxlength="30" value= "<?php echo "$username"; ?>""
+                pattern="^[a-zA-Z]+(([\'\,\.\- ][a-zA-Z ])?[a-zA-Z]*)*$" title="Please enter a valid name: at least two letters required">
 			</fieldset>
 
 			<fieldset>

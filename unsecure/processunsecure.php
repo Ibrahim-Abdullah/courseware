@@ -4,7 +4,7 @@
 
 	//Declare variables 
 		$username = $password =$fname= $lname=$email=$major=$gender=$genderErr=$majorErr=$lnameErr = $fnameErr=$passwordErr = '';
-		$usernameErr = $successMessage = $emailErr = ''; $status = 'ACTIVE'; $per_id = 1;
+		$usernameErr = $successMessage = $emailErr = ''; $status = 'ACTIVE'; $per_id = 2;
 
 
 	if(isset($_POST['register'])){
@@ -62,8 +62,8 @@
     		$password = validatePassword($password);
     	}
 
-    	if($ok){
-            echo "Validation true";
+    	if($ok)
+    	{
     		verify_login($username,$password);
     	}
 	}
@@ -88,6 +88,12 @@
         {
             $username = inputprepping($_POST['username']);
             $username = validateName($username);
+
+            if($username === false)
+        {
+            $ok = false;
+            $usernameErr = "Username must contain only alphabet";
+        }
         }
 
         if(!isset($_POST['password']) || $_POST['password'] === '')
@@ -99,6 +105,12 @@
     	{
     		$password = inputprepping($_POST['password']);
     		$password = validatePassword($password);
+            if($password === false)
+            {
+                $ok = false;
+                $passwordErr = "Password must contain at least one upper case, symbol,
+			    number and password length not less than 6 characters.";
+            }
     	}
         //Firstname validation 
 		if (!isset($_POST['fname']) || $_POST['fname'] === '')
@@ -110,6 +122,12 @@
         {
         	$fname = inputprepping($_POST['fname']);
             $fname = validateName($fname);
+
+            if($fname === false)
+            {
+                $ok = false;
+                $fnameErr = "Firstname must contain only alphabet";
+            }
         }
         
         //Lastname validation
@@ -122,6 +140,12 @@
         {
         	$lname = inputprepping($_POST['lname']);
             $lname = validateName($lname);
+
+            if($lname === false)
+            {
+                $ok = false;
+                $lnameErr = "Lastname must contain only alphabet";
+            }
         }
 
         //Email validation
@@ -134,6 +158,12 @@
         {
         	$email = inputprepping($_POST['email']);
             $email = validateEmail($email);
+
+            if($email === false)
+            {
+                $ok = false;
+                $emailErr = "Email is not correct : Example example@gmail.com";
+            }
         }
 
         //Major validation
@@ -183,7 +213,7 @@
 
   		if(!preg_match("/^[a-zA-Z ]*$/",$data)|| $data === '')
   		{
-  			$ok = false;
+  			return false;
   		}
   		return $data;
 	}
@@ -197,7 +227,7 @@
 	{
   		if (!preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]??\w+)*(\.\w{2,3})+$/', $data) || $data ==='')
   		{
-  			$ok = false;
+  			return false;
   		}
   		return $data;
 	}
@@ -210,7 +240,7 @@
 	function validatePassword($data)
 	{
 		if ($data ==='') {
-			$ok = false;
+			return false;
 		}
 		return $data;	
 	}
@@ -288,7 +318,7 @@
 	 */
 	function verify_login($username,$password)
 	{
-		//global $username,$password,$successMessage,$passwordErr;
+		global $successMessage,$passwordErr;
  
 		$sql = "SELECT * FROM useraccount WHERE username ='$username'";
 		$user = new dbconnection;
@@ -312,7 +342,6 @@
 					$_SESSION['mid'] = $row['major_id'];
 
 					//Redirect to the index.php page
-                    echo "Loggin  was successful. Redirecting ....";
                     header("Location: ../index.php");
 				}else
 				{
